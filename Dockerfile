@@ -1,14 +1,5 @@
-FROM ubuntu:18.04
-
-# Special case
-#COPY sources.list /etc/apt/
-#COPY pip.conf /etc/pip.conf
-
+FROM python:2.7-alpine 
 COPY . /opt/mywebapp/
-RUN apt-get update && \
-    apt-get install -y python python-pip &&  \
-	pip install -r /opt/mywebapp/requirements.txt && \
-    rm -rf /var/lib/apt/lists/*
-
+RUN pip install -r /opt/mywebapp/requirements.txt
 EXPOSE 5000
 ENTRYPOINT ["python", "/opt/mywebapp/app.py"]
